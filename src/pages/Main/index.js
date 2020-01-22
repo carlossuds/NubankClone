@@ -21,8 +21,9 @@ import {
 } from './styles';
 
 export default function Main() {
-  const translateY = new Animated.Value(0);
+  let offset = 0;
 
+  const translateY = new Animated.Value(0);
   const animatedEvent = Animated.event(
     [
       {
@@ -31,12 +32,35 @@ export default function Main() {
         },
       },
     ],
-    {
-      useNativeDriver: true,
-    },
+    {useNativeDriver: true},
   );
 
-  function onHandlerStateChanged(event) {}
+  function onHandlerStateChanged(event) {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      let opened = false;
+      const {translationY} = event.nativeEvent;
+
+      offset += translationY;
+
+      if (translationY >= 100) {
+        opened = true;
+      } else {
+        translateY.setValue(offset);
+        translateY.setOffset(0);
+        offset = 0;
+      }
+
+      Animated.timing(translateY, {
+        toValue: opened ? 420 : 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start(() => {
+        offset = opened ? 420 : 0;
+        translateY.setOffset(offset);
+        translateY.setValue(0);
+      });
+    }
+  }
 
   return (
     <Container>
@@ -53,8 +77,8 @@ export default function Main() {
               transform: [
                 {
                   translateY: translateY.interpolate({
-                    inputRange: [0, 380],
-                    outputRange: [0, 380],
+                    inputRange: [-350, 0, 420],
+                    outputRange: [-50, 0, 420],
                     extrapolate: 'clamp',
                   }),
                 },
