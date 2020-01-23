@@ -2,6 +2,11 @@ import {Animated} from 'react-native';
 
 import styled from 'styled-components/native';
 
+export const SafeAreaView = styled.SafeAreaView`
+  flex: 1;
+  background: #7f22a7;
+`;
+
 export const Container = styled.View`
   flex: 1;
   background: #7f22a7;
@@ -50,8 +55,16 @@ export const Description = styled.Text`
   color: #333;
 `;
 
+export const DescriptionOff = styled.Text`
+  font-size: 32px;
+  margin-top: 3px;
+  color: #333;
+  background-color: #eee;
+`;
+
 export const CardFooter = styled.View`
-  padding: 30px;
+  flex-direction: row;
+  padding: 25px;
   background: #eee;
   border-radius: 4px;
 `;
@@ -59,4 +72,5 @@ export const CardFooter = styled.View`
 export const Annotation = styled.Text`
   font-size: 12px;
   color: #333;
+  margin-left: 5px;
 `;

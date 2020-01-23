@@ -17,7 +17,7 @@ export const Nav = styled.View`
   border-top-color: rgba(255, 255, 255, 0.8);
 `;
 
-export const NavItem = styled.View`
+export const NavItem = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   padding: 12px 0;
